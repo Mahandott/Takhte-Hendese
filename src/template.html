@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تخته هندسه</title>
+<style>
+__FONTS__
+__CSS__
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand"><span class="brand-badge">هـ</span><span class="brand-name">تخته هندسه</span></div>
+  <nav id="tabs">
+    <button class="tab" data-tab="board">تخته</button>
+    <button class="tab" data-tab="tarsim">ترسیم‌ها</button>
+    <button class="tab" data-tab="thales">تالس</button>
+    <button class="tab" data-tab="tashaboh">تشابه</button>
+    <button class="tab" data-tab="istidlal">استدلال</button>
+    <button class="tab" data-tab="pdf">PDF</button>
+  </nav>
+  <div class="globalbar">
+    <button class="gbtn" id="btnTimer" title="تایمر ارائه (T)">تایمر<span id="timerMini"></span></button>
+    <button class="gbtn" id="btnSpot" title="اسپات‌لایت (S)">اسپات</button>
+    <button class="gbtn" id="btnLaser" title="لیزر (L)">لیزر</button>
+    <button class="gbtn" id="btnNight" title="حالت شب (N)">شب</button>
+    <button class="gbtn" id="btnFull" title="تمام‌صفحه (F)">تمام‌صفحه</button>
+    <button class="gbtn" id="btnHelp" title="راهنما و میان‌برها (?)">؟</button>
+  </div>
+</header>
+
+<main id="views">
+
+  <!-- ============ تخته ============ -->
+  <section id="view-board" class="view">
+    <div class="toolbar">
+      <div class="tgroup">
+        <button class="tbtn tool" data-tool="pen">قلم</button>
+        <button class="tbtn tool" data-tool="hl">هایلایت</button>
+        <button class="tbtn tool" data-tool="line">خط</button>
+        <button class="tbtn tool" data-tool="arrow">فلش</button>
+        <button class="tbtn tool" data-tool="circle">دایره</button>
+        <button class="tbtn tool" data-tool="dot">نقطه</button>
+        <button class="tbtn tool" data-tool="text">متن</button>
+        <button class="tbtn tool" data-tool="tick">علامت ضلع</button>
+        <button class="tbtn tool" data-tool="angmark">علامت زاویه</button>
+        <button class="tbtn tool" data-tool="rightangle">قائمه</button>
+        <button class="tbtn tool" data-tool="eraser">پاک‌کن</button>
+      </div>
+      <div class="tgroup colors" id="boardColors"></div>
+      <div class="tgroup">
+        <select id="boardWidth" title="ضخامت">
+          <option value="2">نازک</option>
+          <option value="3.5" selected>متوسط</option>
+          <option value="6">ضخیم</option>
+        </select>
+        <select id="boardBg" title="زمینه">
+          <option value="plain" selected>سفید</option>
+          <option value="grid">شبکه</option>
+          <option value="dots">نقطه‌ای</option>
+          <option value="dark">تیره</option>
+        </select>
+      </div>
+      <div class="tgroup">
+        <button class="tbtn" id="boardUndo" title="واگرد (Ctrl+Z)">واگرد</button>
+        <button class="tbtn" id="boardRedo" title="بازانجام (Ctrl+Y)">بازانجام</button>
+        <button class="tbtn" id="boardClear">پاک کردن همه</button>
+        <button class="tbtn" id="boardPng">ذخیره تصویر</button>
+        <button class="tbtn" id="boardMag" title="ذره‌بین (M)">ذره‌بین</button>
+        <button class="tbtn" id="boardSyms">نمادها</button>
+      </div>
+    </div>
+    <div class="stage" id="boardStage">
+      <canvas id="boardCanvas"></canvas>
+      <canvas id="boardLens" class="lens" width="180" height="180" hidden></canvas>
+    </div>
+  </section>
+
+  <!-- ============ ترسیم‌ها ============ -->
+  <section id="view-tarsim" class="view">
+    <div class="toolbar">
+      <div class="tgroup">
+        <select id="tarsimSel" title="انتخاب ترسیم">
+          <option value="bisector">عمودمنصف پاره‌خط</option>
+          <option value="angbisector">نیمساز زاویه</option>
+          <option value="perpext">عمود از نقطه‌ی خارج خط</option>
+          <option value="perpon">عمود در نقطه‌ی روی خط</option>
+          <option value="parallel">خط موازی از نقطه‌ی مفروض</option>
+          <option value="divide">تقسیم پاره‌خط به n قسمت مساوی</option>
+          <option value="triangle">رسم مثلث با سه ضلع مفروض</option>
+        </select>
+      </div>
+      <div class="tgroup">
+        <button class="tbtn" id="tarsimFirst">اول</button>
+        <button class="tbtn" id="tarsimPrev">قبلی ›</button>
+        <button class="tbtn primary" id="tarsimNext">‹ مرحله بعد</button>
+        <button class="tbtn" id="tarsimLast">آخر</button>
+        <button class="tbtn" id="tarsimPlay">پخش خودکار</button>
+        <button class="tbtn" id="tarsimReset">شروع دوباره</button>
+      </div>
+      <div class="tgroup" id="tarsimNCtl" hidden>
+        <span class="lbl">تعداد قسمت:</span>
+        <button class="tbtn sm" id="tarsimNMinus">−</button>
+        <b id="tarsimNVal">۴</b>
+        <button class="tbtn sm" id="tarsimNPlus">+</button>
+      </div>
+      <div class="tgroup" id="tarsimTriCtl" hidden>
+        <span class="lbl">a = <b id="triAVal">۶</b> سانتی‌متر</span>
+        <input type="range" id="triA" min="2" max="15" value="6" step="0.5">
+        <span class="lbl">b = <b id="triBVal">۵</b> سانتی‌متر</span>
+        <input type="range" id="triB" min="2" max="15" value="5" step="0.5">
+      </div>
+    </div>
+    <div class="stage" id="tarsimStage">
+      <canvas id="tarsimCanvas"></canvas>
+      <div id="tarsimDots" class="dots"></div>
+      <div id="tarsimStep" class="steptext">
+        <div class="stepnum" id="tarsimStepNum"></div>
+        <div class="steptitle" id="tarsimStepBody"></div>
+        <div class="why" id="tarsimWhy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ تالس ============ -->
+  <section id="view-thales" class="view">
+    <div class="toolbar">
+      <div class="tgroup">
+        <button class="tbtn primary" id="thMode">حالت: قضیه تالس</button>
+        <button class="tbtn" id="thWhy">صورت قضیه</button>
+        <button class="tbtn" id="thReset">شروع دوباره</button>
+      </div>
+      <div class="tgroup legend">
+        <span class="lg"><i class="sw sw-a"></i>پاره‌خط اول</span>
+        <span class="lg"><i class="sw sw-b"></i>پاره‌خط دوم</span>
+      </div>
+    </div>
+    <div class="stage" id="thalesStage">
+      <canvas id="thalesCanvas"></canvas>
+      <div class="mathcard" id="thalesCard"></div>
+    </div>
+  </section>
+
+  <!-- ============ تشابه ============ -->
+  <section id="view-tashaboh" class="view">
+    <div class="toolbar">
+      <div class="tgroup">
+        <button class="tbtn" id="tashReset">شروع دوباره</button>
+        <button class="tbtn" id="tashWhy">حالت‌های تشابه</button>
+      </div>
+      <div class="tgroup legend">
+        <span class="lg"><i class="sw sw-t1"></i>مثلث ABC</span>
+        <span class="lg"><i class="sw sw-t2"></i>مثلث A′B′C′</span>
+      </div>
+    </div>
+    <div class="stage" id="tashStage">
+      <canvas id="tashCanvas"></canvas>
+      <div class="mathcard wide" id="tashCard"></div>
+    </div>
+  </section>
+
+  <!-- ============ استدلال ============ -->
+  <section id="view-istidlal" class="view">
+    <div class="ist-wrap">
+      <div class="ist-head">
+        <input id="istTitle" class="ist-title" placeholder="عنوان مسئله…">
+        <div class="ist-gc">
+          <span class="lbl">فرض:</span><input id="istGiven" placeholder="فرض مسئله…">
+          <span class="lbl">حکم:</span><input id="istClaim" placeholder="حکم مسئله…">
+        </div>
+        <div class="ist-actions">
+          <button class="tbtn primary" id="istAdd">+ افزودن گزاره</button>
+          <button class="tbtn" id="istSyms">نمادها</button>
+          <button class="tbtn" id="istPrint">چاپ</button>
+          <button class="tbtn" id="istTxt">ذخیره متن</button>
+          <button class="tbtn" id="istCards">کارت قضیه‌ها</button>
+          <button class="tbtn" id="istClear">پاک کردن</button>
+        </div>
+      </div>
+      <div id="istRows" class="ist-rows"></div>
+    </div>
+  </section>
+
+  <!-- ============ PDF ============ -->
+  <section id="view-pdf" class="view">
+    <div class="toolbar">
+      <div class="tgroup">
+        <label class="tbtn filebtn" for="pdfFile">باز کردن PDF</label>
+        <input type="file" id="pdfFile" accept="application/pdf" hidden>
+        <button class="tbtn" id="pdfBook" hidden>باز کردن فصل کتاب</button>
+      </div>
+      <div class="tgroup">
+        <button class="tbtn" id="pdfPrev">›</button>
+        <span id="pdfInfo" class="lbl">صفحه —</span>
+        <input id="pdfPage" class="pagenum" size="3" title="شماره صفحه">
+        <button class="tbtn" id="pdfNext">‹</button>
+        <button class="tbtn" id="pdfZoomOut">−</button>
+        <span id="pdfZoomLbl" class="lbl">۱۰۰٪</span>
+        <button class="tbtn" id="pdfZoomIn">+</button>
+      </div>
+      <div class="tgroup">
+        <button class="tbtn tool" data-ptool="pen">قلم</button>
+        <button class="tbtn tool" data-ptool="hl">هایلایت</button>
+        <button class="tbtn tool" data-ptool="eraser">پاک‌کن</button>
+        <button class="tbtn" id="pdfUndo">واگرد</button>
+        <button class="tbtn" id="pdfClearAnno">پاک کردن نوشته‌ها</button>
+        <button class="tbtn" id="pdfPng">ذخیره تصویر صفحه</button>
+        <button class="tbtn" id="pdfNight">معکوس رنگ</button>
+        <button class="tbtn" id="pdfBlank">صفحه سفید حل تمرین</button>
+      </div>
+      <div class="tgroup colors" id="pdfColors"></div>
+    </div>
+    <div class="stage" id="pdfStage">
+      <div id="pdfEmpty" class="dropzone">
+        <div class="dz-icon">PDF</div>
+        <div class="dz-text">فایل PDF فصل را از دکمه‌ی «باز کردن PDF» انتخاب کنید<br>یا فایل را همین‌جا رها کنید.</div>
+      </div>
+      <div id="pdfWrap" hidden>
+        <div id="pdfPageBox">
+          <canvas id="pdfCanvas"></canvas>
+          <canvas id="pdfAnno"></canvas>
+        </div>
+      </div>
+      <div id="blankWrap" hidden><canvas id="blankCanvas"></canvas></div>
+      <canvas id="pdfLens" class="lens" width="180" height="180" hidden></canvas>
+    </div>
+  </section>
+
+</main>
+
+<!-- پالت نمادها -->
+<div id="symPad" class="sympad" hidden></div>
+
+<!-- تایمر -->
+<div id="timerModal" class="modal" hidden>
+  <div class="box">
+    <h3>تایمر ارائه</h3>
+    <div id="timerBig" class="timer-big">۰۰:۰۰</div>
+    <div class="timer-ctl">
+      <label><input type="radio" name="tmode" value="up" checked> شمارش رو به جلو</label>
+      <label><input type="radio" name="tmode" value="down"> شمارش معکوس</label>
+      <input id="timerMin" type="number" min="1" max="180" value="10" class="pagenum"> دقیقه
+    </div>
+    <div class="row">
+      <button class="tbtn primary" id="timerToggle">شروع</button>
+      <button class="tbtn" id="timerReset">صفر کردن</button>
+      <button class="tbtn" id="timerClose">بستن</button>
+    </div>
+  </div>
+</div>
+
+<!-- راهنما -->
+<div id="helpModal" class="modal" hidden>
+  <div class="box">
+    <h3>راهنمای سریع</h3>
+    <div class="help-grid">
+      <b>F</b><span>تمام‌صفحه</span>
+      <b>N</b><span>حالت شب (معکوس برای پروژکتور)</span>
+      <b>S</b><span>اسپات‌لایت — تاریک‌کردن صفحه به‌جز یک دایره زیر ماوس</span>
+      <b>L</b><span>لیزر — نقطه قرمز دنبال‌کننده ماوس</span>
+      <b>T</b><span>تایمر ارائه</span>
+      <b>?</b><span>این راهنما</span>
+      <b>Esc</b><span>خروج از هر حالت/پنجره</span>
+      <b>PageUp / PageDown</b><span>کلیکر: صفحه‌ی PDF یا مرحله‌ی ترسیم قبلی/بعدی</span>
+      <b>Ctrl+Z / Ctrl+Y</b><span>واگرد / بازانجام در تخته</span>
+      <b>کلیدهای جهت</b><span>مرحله‌های ترسیم (در بخش ترسیم‌ها)</span>
+    </div>
+    <p class="hint">هرچه می‌کشید و می‌نویسید خودکار ذخیره می‌شود (در همان مرورگر و همان کامپیوتر). همه‌ی نقاط پررنگ در شکل‌ها با ماوس قابل جابه‌جایی‌اند.</p>
+    <div class="row"><button class="tbtn primary" id="helpClose">بستن</button></div>
+  </div>
+</div>
+
+<!-- کارت قضیه‌ها -->
+<div id="cardsModal" class="modal" hidden>
+  <div class="box wide">
+    <h3>کارت قضیه‌ها</h3>
+    <div id="cardsBody"></div>
+    <div class="row"><button class="tbtn primary" id="cardsClose">بستن</button></div>
+  </div>
+</div>
+
+<div id="toast" hidden></div>
+
+<!-- لایه‌ی افکت‌های سراسری: لیزر و اسپات‌لایت -->
+<canvas id="fxCanvas" hidden></canvas>
+
+<!-- داده‌ی اختیاری کتاب (اگر فایل فصل داخل برنامه جاسازی شده باشد) -->
+<script src="book_data.js"></script>
+<!-- موتور PDF (نسخه legacy سازگار با ویندوز ۷ / Chrome 109) -->
+<script src="pdfjs/pdf.min.js"></script>
+<script src="pdfjs/pdf.worker.min.js"></script>
+<script>
+__JS__
+</script>
+</body>
+</html>

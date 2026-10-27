@@ -1,0 +1,272 @@
+/* ================= تخته هندسه — استایل ================= */
+:root{
+  --bg:#eef1f5; --panel:#ffffff; --panel2:#f7f9fc; --ink:#1c2733; --ink2:#5b6b7c;
+  --line:#d7dee8; --primary:#0f62b5; --primary2:#0a4f93; --accent:#e8710a;
+  --ok:#1e8e3e; --err:#d23f31; --warn:#b8860b;
+  --shadow:0 2px 10px rgba(20,40,80,.12);
+  --radius:12px;
+}
+html.night{
+  --bg:#10151c; --panel:#1a2230; --panel2:#141b26; --ink:#e8eef6; --ink2:#9fb0c3;
+  --line:#2c3848; --primary:#4ea3f0; --primary2:#3b8cd8; --accent:#ff9d3f;
+  --ok:#4cd471; --err:#ff7b6b; --warn:#ffd166;
+  --shadow:0 2px 12px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:Vazirmatn,Vazir,Tahoma,"Segoe UI",sans-serif; font-size:15px;
+  overflow:hidden; user-select:none;
+}
+button{font-family:inherit}
+input,select,textarea{font-family:inherit; color:var(--ink)}
+
+/* ---------- نوار بالا ---------- */
+#topbar{
+  height:60px; display:flex; align-items:center; gap:10px; padding:0 12px;
+  background:var(--panel); border-bottom:1px solid var(--line); box-shadow:var(--shadow);
+  position:relative; z-index:30;
+}
+.brand{display:flex; align-items:center; gap:8px; font-weight:bold; font-size:17px; white-space:nowrap}
+.brand-badge{
+  width:34px;height:34px;border-radius:9px;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+#tabs{display:flex; gap:4px; flex:1; overflow-x:auto}
+.tab{
+  border:1px solid transparent; background:transparent; color:var(--ink2);
+  padding:9px 16px; font-size:15.5px; border-radius:10px; cursor:pointer; white-space:nowrap;
+}
+.tab:hover{background:var(--panel2); color:var(--ink)}
+.tab.active{background:var(--primary); color:#fff; font-weight:bold}
+.globalbar{display:flex; gap:6px}
+.gbtn{
+  border:1px solid var(--line); background:var(--panel2); color:var(--ink);
+  min-height:40px; padding:6px 12px; border-radius:10px; cursor:pointer; font-size:14px;
+  display:flex; align-items:center; gap:6px;
+}
+.gbtn:hover{border-color:var(--primary)}
+.gbtn.on{background:var(--accent); border-color:var(--accent); color:#fff}
+#timerMini{font-weight:bold; min-width:2px}
+
+/* ---------- نماها ---------- */
+#views{height:calc(100% - 60px); position:relative}
+.view{display:none; height:100%; flex-direction:column}
+.view.active{display:flex}
+
+.toolbar{
+  display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  padding:8px 10px; background:var(--panel); border-bottom:1px solid var(--line);
+}
+.tgroup{display:flex; align-items:center; gap:6px; flex-wrap:wrap}
+.tgroup+.tgroup{border-inline-start:1px solid var(--line); padding-inline-start:8px}
+.tbtn{
+  border:1px solid var(--line); background:var(--panel2); color:var(--ink);
+  min-height:42px; padding:7px 14px; border-radius:10px; cursor:pointer; font-size:15px;
+}
+.tbtn:hover{border-color:var(--primary); background:var(--panel)}
+.tbtn:active{transform:translateY(1px)}
+.tbtn.primary{background:var(--primary); border-color:var(--primary); color:#fff; font-weight:bold}
+.tbtn.primary:hover{background:var(--primary2)}
+.tbtn.sm{min-height:34px; padding:4px 10px}
+.tbtn.tool.active{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:bold}
+.tbtn.filebtn{display:inline-flex; align-items:center; cursor:pointer}
+.tbtn.on{background:var(--ok); border-color:var(--ok); color:#fff}
+.lbl{font-size:13.5px; color:var(--ink2); white-space:nowrap}
+select{
+  min-height:42px; padding:6px 10px; border-radius:10px; border:1px solid var(--line);
+  background:var(--panel2); font-size:15px; cursor:pointer;
+}
+input[type=range]{accent-color:var(--primary); width:130px}
+
+.stage{flex:1; position:relative; min-height:0; overflow:hidden}
+.stage>canvas{position:absolute; inset:0; width:100%; height:100%; display:block; touch-action:none}
+
+.legend{gap:12px}
+.lg{display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--ink2)}
+.sw{width:16px;height:6px;border-radius:3px;display:inline-block}
+.sw-a{background:#d23f31}.sw-b{background:#1565c0}
+.sw-t1{background:#0f62b5}.sw-t2{background:#e8710a}
+
+/* ---------- کارت ریاضی شناور ---------- */
+.mathcard{
+  position:absolute; top:12px; inset-inline-start:12px; z-index:5;
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:10px 14px; font-size:17px; line-height:1.9;
+  max-width:min(560px, 60%);
+}
+.mathcard.wide{max-width:min(680px, 72%)}
+.mathcard .num{font-size:19px; font-weight:bold; letter-spacing:.5px}
+.mathcard .ok{color:var(--ok)} .mathcard .err{color:var(--err)}
+.mathcard .badge{
+  display:inline-block; margin-top:6px; padding:5px 12px; border-radius:999px;
+  background:var(--ok); color:#fff; font-size:15px; font-weight:bold;
+}
+.mathcard .badge.off{background:var(--err)}
+.mathcard .badge.warn{background:var(--warn)}
+.mathcard .dim{color:var(--ink2); font-size:13.5px}
+.angle-row{display:flex; gap:14px; flex-wrap:wrap; font-size:15.5px}
+.angle-row b.eq{color:var(--ok)} .angle-row span.ne{color:var(--ink2)}
+
+/* ---------- ترسیم: متن مرحله ---------- */
+.steptext{
+  position:absolute; bottom:0; left:0; right:0; z-index:6;
+  background:var(--panel); border-top:1px solid var(--line);
+  padding:10px 18px 12px; box-shadow:0 -4px 14px rgba(0,0,0,.08);
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+}
+.stepnum{
+  background:var(--primary); color:#fff; border-radius:999px; padding:4px 14px;
+  font-weight:bold; font-size:15px; white-space:nowrap;
+}
+.steptitle{font-size:19px; line-height:1.8; flex:1; min-width:260px}
+.why{width:100%; font-size:13.5px; color:var(--ink2); border-top:1px dashed var(--line); padding-top:6px; margin-top:2px}
+.dots{
+  position:absolute; top:10px; left:0; right:0; z-index:6;
+  display:flex; justify-content:center; gap:8px; pointer-events:none;
+}
+.dots i{
+  width:14px;height:14px;border-radius:50%;background:var(--panel);
+  border:2px solid var(--line); pointer-events:auto; cursor:pointer;
+}
+.dots i.done{background:var(--primary); border-color:var(--primary)}
+.dots i.cur{border-color:var(--accent); box-shadow:0 0 0 3px rgba(232,113,10,.3)}
+
+/* ---------- تخته ---------- */
+.colors{gap:5px}
+.chip{
+  width:26px;height:26px;border-radius:50%;border:2px solid rgba(0,0,0,.15);
+  cursor:pointer; padding:0;
+}
+.chip.sel{outline:3px solid var(--primary); outline-offset:1px}
+.lens{
+  position:absolute; width:180px;height:180px;border-radius:50%;
+  border:3px solid var(--primary); box-shadow:0 6px 18px rgba(0,0,0,.35);
+  pointer-events:none; z-index:20; background:#fff;
+}
+#boardTextIn{
+  position:absolute; z-index:15; font-size:18px; padding:6px 10px;
+  border:2px solid var(--primary); border-radius:8px; background:var(--panel); color:var(--ink);
+}
+
+/* ---------- نشانگر پاک‌کن ---------- */
+.cur-eraser{
+  cursor:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='12' fill='rgba(255,255,255,0.55)' stroke='%23d23f31' stroke-width='2.5'/%3E%3Ccircle cx='15' cy='15' r='2' fill='%23d23f31'/%3E%3C/svg%3E") 15 15, auto;
+}
+
+/* ---------- استدلال ---------- */
+.ist-wrap{flex:1; display:flex; flex-direction:column; min-height:0; padding:12px; gap:10px}
+.ist-head{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:12px; display:flex; flex-direction:column; gap:10px}
+.ist-title{font-size:17px; font-weight:bold}
+.ist-gc{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.ist-gc input{flex:1; min-width:200px; min-height:40px; border:1px solid var(--line); border-radius:9px; padding:6px 12px; background:var(--panel2)}
+.ist-gc .lbl{font-weight:bold}
+.ist-actions{display:flex; gap:6px; flex-wrap:wrap}
+.ist-rows{flex:1; overflow:auto; display:flex; flex-direction:column; gap:8px; padding-bottom:20px}
+.ist-row{
+  display:flex; align-items:stretch; gap:8px; background:var(--panel);
+  border:1px solid var(--line); border-radius:var(--radius); padding:8px; box-shadow:var(--shadow);
+}
+.ist-num{
+  width:38px; display:flex; align-items:center; justify-content:center;
+  font-weight:bold; font-size:17px; color:#fff; background:var(--primary); border-radius:9px;
+}
+.ist-stmt{flex:2.2; min-height:42px; border:1px solid var(--line); border-radius:9px; padding:7px 12px; font-size:15.5px; background:var(--panel2); resize:none}
+.ist-reason{flex:1.4; min-height:42px}
+.ist-reason.custom{display:none}
+.ist-ctl{display:flex; flex-direction:column; gap:4px}
+.ist-ctl button{
+  border:1px solid var(--line); background:var(--panel2); border-radius:8px; cursor:pointer;
+  min-width:34px; min-height:26px; font-size:13px; color:var(--ink);
+}
+.ist-ctl button:hover{border-color:var(--err); color:var(--err)}
+#istPrintView{display:none}
+
+/* ---------- PDF ---------- */
+.pagenum{min-height:42px; width:58px; border:1px solid var(--line); border-radius:10px; padding:6px 8px; background:var(--panel2); text-align:center; font-size:15px}
+.dropzone{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; color:var(--ink2); text-align:center; line-height:2;
+}
+.dz-icon{
+  font-size:22px; font-weight:bold; color:#fff; background:var(--err);
+  width:84px;height:84px;border-radius:20px; display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);
+}
+.dropzone.drag{outline:4px dashed var(--primary); outline-offset:-14px; color:var(--primary)}
+#pdfWrap{position:absolute; inset:10px; overflow:auto; display:flex; justify-content:center; align-items:flex-start}
+#pdfWrap.nightinv{filter:invert(1) hue-rotate(180deg)}
+#pdfPageBox{position:relative; box-shadow:0 4px 20px rgba(0,0,0,.25); background:#fff; flex:none}
+#pdfPageBox canvas{position:absolute; top:0; left:0; touch-action:none}
+#blankWrap{position:absolute; inset:0}
+#blankWrap canvas{position:absolute; inset:0; width:100%; height:100%; background:#fff; touch-action:none}
+html.night #blankWrap canvas{background:#101820}
+
+/* ---------- پالت نمادها ---------- */
+.sympad{
+  position:fixed; z-index:60; background:var(--panel); border:1px solid var(--line);
+  border-radius:var(--radius); box-shadow:0 8px 26px rgba(0,0,0,.25); padding:10px;
+  display:grid; grid-template-columns:repeat(6, 46px); gap:6px;
+}
+.sympad button{
+  height:42px; font-size:19px; border:1px solid var(--line); border-radius:9px;
+  background:var(--panel2); cursor:pointer; color:var(--ink);
+}
+.sympad button:hover{border-color:var(--primary); background:var(--panel)}
+
+/* ---------- مودال‌ها ---------- */
+.modal{
+  position:fixed; inset:0; z-index:70; background:rgba(8,14,22,.55);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.modal .box{
+  background:var(--panel); color:var(--ink); border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,.4);
+  padding:20px 22px; max-width:560px; width:100%; max-height:86vh; overflow:auto;
+}
+.modal .box.wide{max-width:860px}
+.modal h3{margin:0 0 14px; font-size:19px}
+.modal .row{display:flex; gap:8px; margin-top:14px; justify-content:flex-start}
+.timer-big{
+  font-size:64px; font-weight:bold; text-align:center; letter-spacing:2px; direction:ltr;
+  background:var(--panel2); border:1px solid var(--line); border-radius:12px; padding:10px; margin-bottom:12px;
+}
+.timer-big.over{color:var(--err); animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.35}}
+.timer-ctl{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:6px}
+.help-grid{display:grid; grid-template-columns:auto 1fr; gap:7px 14px; font-size:14.5px; align-items:center}
+.help-grid b{background:var(--panel2); border:1px solid var(--line); border-radius:7px; padding:2px 10px; text-align:center; direction:ltr; display:inline-block}
+.hint{font-size:13.5px; color:var(--ink2); line-height:1.9; border-top:1px dashed var(--line); padding-top:10px}
+.thm-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.thm{
+  border:1px solid var(--line); border-radius:12px; padding:12px; background:var(--panel2);
+}
+.thm h4{margin:0 0 8px; font-size:16px; color:var(--primary)}
+.thm .fig{text-align:center; margin-bottom:8px}
+.thm .fig svg{max-width:100%; height:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px}
+.thm p{margin:0; font-size:14.5px; line-height:2}
+.thm .formula{font-weight:bold; direction:ltr; text-align:center; font-size:16px; margin-top:6px}
+
+/* ---------- توست ---------- */
+#toast{
+  position:fixed; bottom:26px; left:50%; transform:translateX(-50%); z-index:90;
+  background:var(--ink); color:var(--bg); padding:10px 22px; border-radius:999px;
+  font-size:15px; box-shadow:0 6px 20px rgba(0,0,0,.3);
+}
+html.night #toast{background:var(--ink); color:#10151c}
+
+/* ---------- افکت‌ها ---------- */
+#fxCanvas{position:fixed; inset:0; z-index:80; pointer-events:none}
+
+/* ---------- چاپ استدلال ---------- */
+@media print{
+  body{overflow:visible; background:#fff}
+  #topbar,#views,.modal,.sympad,#toast,#fxCanvas{display:none !important}
+  #istPrintView{display:block !important; padding:10mm; color:#000; font-size:14pt}
+  #istPrintView h2{text-align:center}
+  #istPrintView table{width:100%; border-collapse:collapse; margin-top:6mm}
+  #istPrintView th,#istPrintView td{border:1px solid #000; padding:8px 12px; text-align:right; font-size:13pt}
+  #istPrintView .gc{margin-top:4mm; line-height:2.2}
+}
+@media print{ #istPrintView{display:block} }
